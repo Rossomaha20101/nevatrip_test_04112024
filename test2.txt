@@ -1,0 +1,12 @@
+# CREATE NEW TABLE IN SQL
+# После смены интерфейса (входящих данных) можно добавить новую таблицу в бд для хранения билетов и связать её с таблицей заказов полем id_order.
+# Далее можно удалить поля с билетами из таблицы заказов.
+
+CREATE TABLE list_tickets 
+(
+    id int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    type_ticket varchar(120),
+    price int(11),
+	  id_order int(10),
+	  barcode varchar(120)
+);
