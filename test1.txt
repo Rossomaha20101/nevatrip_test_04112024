@@ -1,0 +1,48 @@
+# CREATE TABLE IN SQL
+
+CREATE TABLE list_orders 
+(
+    id int(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    event_id int(11),
+    event_date varchar(10),
+    ticket_adult_price int(11),
+    ticket_adult_quantity int(11),
+    ticket_kid_price int(11),
+    ticket_kid_quantity int(11),
+    barcode varchar(120),
+    equal_price int(11),
+    created datetime
+);
+
+# FUNCTION PHP ADD ORDERS IN TABLE
+# uniqid() - расстерялась, не работала с баркодом до этого, решила это лучше, чем писать псевдокод
+
+function addOrders($mysqli, $event_id, $event_date, $ticket_adult_price, $ticket_adult_quantity, $ticket_kid_price, $ticket_kid_quantity) {
+	$barcode = uniqid();
+	$equal_price = ($ticket_adult_price * $ticket_adult_quantity) + ($ticket_kid_price * $ticket_kid_quantity);
+	
+   $sql = "INSERT INTO list_orders (
+		event_id, 
+		event_date, 
+		ticket_adult_price, 
+		ticket_adult_quantity, 
+		ticket_kid_price, 
+		ticket_kid_quantity,
+		barcode,
+		equal_price,
+		created
+		) VALUES (
+		'$event_id', 
+		'$event_date', 
+		'$ticket_adult_price', 
+		'$ticket_adult_quantity',
+		'$ticket_kid_price', 
+		'$ticket_kid_quantity',
+		'$barcode',
+		'$equal_price',
+		now()
+		)";
+	$res = $mysqli->query($sql);
+}
+
+addOrders($mysqli, 3, '2021-08-21 13:00:00', 700, 1, 450, 0);
